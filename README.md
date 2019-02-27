@@ -62,7 +62,7 @@ css = csslib.get( 'div', '.foo', '.bar');
 //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}
 ```
 
-## 测试结果示例（输出结果忽略顺序）
+## 测试结果示例
 <details>
 <summary><strong>01 新建样式库并指定库名，可有效避免类名冲突，也便于复用</strong></summary>
 
@@ -77,8 +77,8 @@ let result = csslib.get( '.foo', '.bar' );
 /*
 // result:
 
-.pkg---bar{size:2}
 .pkg---foo{size:1}
+.pkg---bar{size:2}
 */
 ```
 </details>
@@ -98,8 +98,8 @@ let result = csslib.get( '.foo', '.bar' );
 /*
 // result:
 
-.bar{size:2}
 .foo{size:1}
+.bar{size:2}
 */
 ```
 </details>
@@ -282,8 +282,8 @@ let result = csslib.get( '.foo', '.bar' );
 /*
 // result:
 
-.pkg---bar{size:1}
 .pkg---foo{size:1}
+.pkg---bar{size:1}
 .pkg---bar{color:red}
 */
 ```
@@ -322,8 +322,8 @@ let result = csslib.get( '.foo', '.bar' );
 /*
 // result:
 
-@media (min-width: 768px) { .pkg---bar{margin: 0} }
 @media (min-width: 768px) { .pkg---foo{margin: 0} }
+@media (min-width: 768px) { .pkg---bar{margin: 0} }
 */
 ```
 </details>
@@ -392,11 +392,11 @@ let result = csslib.get( '.bar', '.baz' );
   animation:pkg---foo;
   animation-duration: 5s
 }
+.pkg---baz{size:14}
 @keyframes pkg---foo{
   0% {background:red}
   to {background:yellow}
 }
-.baz{size:14}
 */
 ```
 </details>
@@ -428,12 +428,12 @@ let result = csslib.get( '.bar' );
 /*
 // result:
 
-@media (min-width: 768px) {
-  .pkg---bar{animation:pkg---foo 5s}
-}
 @keyframes pkg---foo{
   0% {background:red}
   to {background:yellow}
+}
+@media (min-width: 768px) {
+  .pkg---bar{animation:pkg---foo 5s}
 }
 */
 ```
@@ -467,16 +467,16 @@ let result = csslib.get( '.bar', '.baz' );
 /*
 // result:
 
-.baz{size:14}
+.pkg---baz{size:14}
+@keyframes pkg---foo{
+  0% {background:red}
+  to {background:yellow}
+}
 @media (min-width: 768px) {
   .pkg---bar{
     animation:pkg---foo;
     animation-duration: 5s
   }
-}
-@keyframes pkg---foo{
-  0% {background:red}
-  to {background:yellow}
 }
 */
 ```
@@ -508,7 +508,7 @@ let result = csslib.get( '.baz' );
 /*
 // result:
 
-.baz{size:14}
+.pkg---baz{size:14}
 */
 ```
 </details>
@@ -535,17 +535,17 @@ csslib.imp(`
   }
 `);
 
-let result = csslib.get( '.baz' );
+let result = csslib.get( '.bar' );
 
 /*
 // result:
 
-@supports (position: sticky) {
-  .pkg---bar{animation:pkg---foo 5s}
-}
 @keyframes pkg---foo {
   0% {background: red}
   to {background: yellow}
+}
+@supports (position: sticky) {
+  .pkg---bar{animation:pkg---foo 5s}
 }
 */
 ```
@@ -696,7 +696,7 @@ let result = csslib.get( '.fa' );
 /*
 // result: (注：实际url资源会被复制并哈希化文件名，默认路径改为资源文件的绝对路径)
 
-  .fa {
+  .pkg---fa {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
   }
