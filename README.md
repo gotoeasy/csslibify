@@ -33,8 +33,16 @@ npm i csslibify
 
 ## API
 - [x] csslibify(pkgname) - 创建指定包名（命名空间）的样式库<br>
+      pkgname - 包名 （默认用于类名前缀，指定时需自行注意正确性）<br>
 - [x] csslib.imp(cssOrFile, opts) - 把CSS或CSS文件导入到样式库<br>
+      cssOrFile - 样式文件或内容 （必须输入）<br>
+      opts.basePath - 样式所在目录 （文件时默认为文件所在目录，内容时默认当前目录）<br>
+      opts.assetsPath - 修改后的url资源目录 （默认复制资源后使用绝对路径）<br>
 - [x] csslib.get(...args) - 按需取样式<br>
+      args - 字符串或选项对象，参数顺序无关<br>
+      字符串时，以`.`开头的视为类名条件，否则视为标签名条件<br>
+      选项对象时，opts.rename - 类名修改函数（第一参数为包名，第二参数为不含`.`的类名，返回新类名），默认为${pkg}---{classname}<br>
+      选项对象时，opts.atpage - 是否包含@page样式，默认false<br>
 
 
 ## Sample
@@ -43,11 +51,15 @@ let csslibify = require('csslibify');
 let csslib = csslibify('thepkg');
 csslib.imp('.foo{size:11} .bar{size:12} .foo > .bar{color:red}');
 csslib.imp('.baz{size:13}');
+csslib.imp('div{color:red}');
 let css = csslib.get('.bar', '.baz');
 //=>  .thepkg---bar{size:12} .thepkg---baz{size:13}
 
 css = csslib.get('.foo', '.bar');
 //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}
+
+css = csslib.get( 'div', '.foo', '.bar');
+//=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}
 ```
 
 ## 测试结果示例（输出结果忽略顺序）
