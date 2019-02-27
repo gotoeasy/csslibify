@@ -1,6 +1,6 @@
 {
   "name": "csslibify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "dependencies": {
     "@gotoeasy/os": "*",
@@ -46,11 +46,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gotoeasy/npm-packages.git"
+    "url": "git+https://github.com/gotoeasy/csslibify.git"
   },
-  "homepage": "https://github.com/gotoeasy/npm-packages/blob/master/csslibify/README.md",
+  "homepage": "https://github.com/gotoeasy/csslibify/blob/master/README.md",
   "bugs": {
-    "url": "https://github.com/gotoeasy/npm-packages/issues"
+    "url": "https://github.com/gotoeasy/csslibify/issues"
   },
   "author": {
     "name": "青松",

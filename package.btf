@@ -2,7 +2,7 @@
 csslibify
 
 [version] // 版本号 （必填）
-0.1.0
+0.1.1
 
 
 
@@ -55,13 +55,13 @@ csslib, css library, css tool
 
 [repository] // 仓库
 type= git
-url = git+https://github.com/gotoeasy/npm-packages.git
+url = git+https://github.com/gotoeasy/csslibify.git
 
 [homepage] // 主页，github项目会自动识别设定
-https://github.com/gotoeasy/npm-packages/blob/master/csslibify/README.md
+https://github.com/gotoeasy/csslibify/blob/master/README.md
 
 [bugs] // BUG提交地址，github项目会自动识别设定
-url = https://github.com/gotoeasy/npm-packages/issues
+url = https://github.com/gotoeasy/csslibify/issues
 
 [author] // 作者信息
 name = 青松
