@@ -1,0 +1,60 @@
+{
+  "name": "csslibify",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "@gotoeasy/os": "*",
+    "@gotoeasy/bus": "*",
+    "@gotoeasy/npm": "*",
+    "@gotoeasy/hash": "*",
+    "@gotoeasy/file": "*",
+    "css-selector-tokenizer": "*",
+    "postcss": "*",
+    "postcss-unprefix": "*",
+    "postcss-discard-comments": "*",
+    "postcss-url": "*",
+    "postcss-nested": "*",
+    "postcss-css-variables": "*",
+    "postcss-normalize-whitespace": "*",
+    "postcss-minify-params": "*",
+    "postcss-normalize-string": "*",
+    "postcss-normalize-display-values": "*",
+    "postcss-normalize-positions": "*",
+    "postcss-normalize-repeat-style": "*",
+    "postcss-minify-font-values": "*",
+    "postcss-minify-gradients": "*",
+    "postcss-color-hex-alpha": "*",
+    "postcss-merge-longhand": "*",
+    "postcss-discard-empty": "*"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "nyc": "*",
+    "opn": "*",
+    "@fortawesome/fontawesome-free": "*",
+    "bootstrap": "*"
+  },
+  "scripts": {
+    "test": "nyc ava",
+    "coverage": "nyc ava & nyc report --reporter=html & node coverage"
+  },
+  "description": "一个库化CSS样式的工具",
+  "keywords": [
+    "csslib",
+    "css library",
+    "css tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gotoeasy/npm-packages.git"
+  },
+  "homepage": "https://github.com/gotoeasy/npm-packages/blob/master/csslibify/README.md",
+  "bugs": {
+    "url": "https://github.com/gotoeasy/npm-packages/issues"
+  },
+  "author": {
+    "name": "青松",
+    "email": "gotoeasy@163.com"
+  },
+  "license": "Apache-2.0"
+}

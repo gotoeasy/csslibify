@@ -1,0 +1,72 @@
+[name] // 项目名 （必填）
+csslibify
+
+[version] // 版本号 （必填）
+0.1.0
+
+
+
+[main] // 入口文件
+index.js
+
+[bin] // cli命令
+
+[dependencies] // 依赖库
+@gotoeasy/os = *
+@gotoeasy/bus = *
+@gotoeasy/npm = *
+@gotoeasy/hash = *
+@gotoeasy/file = *
+css-selector-tokenizer = *
+postcss = *
+postcss-unprefix = *
+postcss-discard-comments = *
+postcss-url = *
+postcss-nested = *
+postcss-css-variables = *
+postcss-normalize-whitespace = *
+postcss-minify-params = *
+postcss-normalize-string = *
+postcss-normalize-display-values = *
+postcss-normalize-positions = *
+postcss-normalize-repeat-style = *
+postcss-minify-font-values = *
+postcss-minify-gradients = *
+postcss-color-hex-alpha = *
+postcss-merge-longhand = *
+postcss-discard-empty = *
+
+[devDependencies] // 开发依赖库
+ava = *
+nyc = *
+opn = *
+@fortawesome/fontawesome-free = *
+bootstrap = *
+
+[scripts] // 脚本命令
+test = nyc ava
+coverage = nyc ava & nyc report --reporter=html & node coverage
+
+[description] // 描述
+一个库化CSS样式的工具
+
+[keywords] // 检索关键字，多个关键字用半角逗号分隔
+csslib, css library, css tool
+
+[repository] // 仓库
+type= git
+url = git+https://github.com/gotoeasy/npm-packages.git
+
+[homepage] // 主页，github项目会自动识别设定
+https://github.com/gotoeasy/npm-packages/blob/master/csslibify/README.md
+
+[bugs] // BUG提交地址，github项目会自动识别设定
+url = https://github.com/gotoeasy/npm-packages/issues
+
+[author] // 作者信息
+name = 青松
+email= gotoeasy@163.com
+
+[license] // 协议
+Apache-2.0
+
