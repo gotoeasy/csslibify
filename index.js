@@ -15,6 +15,8 @@ module.exports = (function(oLibs={}) {
         if ( name && oLibs[name] ) return oLibs[name];
 
         // -------------------------------------------------------------
+        // 能自动判别避免重复导入影响性能
+        // 
         // fileOrCss            : 样式文件或内容 （必须输入）
         // opt.basePath         : 样式所在目录 （文件时默认为文件所在目录）
         // opt.assetsPath       : 修改后的url资源目录 （默认复制资源后使用该资源的绝对路径）
@@ -27,7 +29,7 @@ module.exports = (function(oLibs={}) {
         let get = bus.on('get-relative-css')[0];         // 从样式库按需引用
 
         pkg = pkg.replace(/@/ig, '').replace(/[^a-zA-Z0-9\-_/]/g, '-');       // @scope/name => scope-name
-        let csslib = { name, pkg, imp, get, nodes: [] };
+        let csslib = { name, pkg, imp, get, nodes: [], _imported: [] };
         name && (oLibs[name] = csslib);
         return csslib;
     };
