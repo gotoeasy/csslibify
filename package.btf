@@ -2,7 +2,7 @@
 csslibify
 
 [version] // 版本号 （必填）
-0.1.4
+0.2.1
 
 
 
@@ -12,29 +12,30 @@ index.js
 [bin] // cli命令
 
 [dependencies] // 依赖库
-@gotoeasy/os = ~0.0
-@gotoeasy/bus = ~0.0
-@gotoeasy/npm = ~0.0
-@gotoeasy/hash = ~0.0
-@gotoeasy/file = ~0.0
-css-selector-tokenizer = ~0.7
-postcss = ~7.0
-postcss-unprefix = ~2.1
-postcss-discard-comments = ~4.0
-postcss-url = ~8.0
-postcss-nested = ~4.1
-postcss-css-variables = ~0.12
-postcss-normalize-whitespace = ~4.0
-postcss-minify-params = ~4.0
-postcss-normalize-string = ~4.0
-postcss-normalize-display-values = ~4.0
-postcss-normalize-positions = ~4.0
-postcss-normalize-repeat-style = ~4.0
-postcss-minify-font-values = ~4.0
-postcss-minify-gradients = ~4.0
-postcss-color-hex-alpha = ~5.0
-postcss-merge-longhand = ~4.0
-postcss-discard-empty = ~4.0
+@gotoeasy/os = 0.0.*
+@gotoeasy/bus = 0.0.*
+@gotoeasy/npm = 0.0.*
+@gotoeasy/hash = 0.0.*
+@gotoeasy/file = 0.0.*
+@gotoeasy/cache = 0.1.*
+css-selector-tokenizer = 0.7.*
+postcss = 7.0.*
+postcss-unprefix = 2.1.*
+postcss-discard-comments = 4.0.*
+postcss-url = 8.0.*
+postcss-nested = 4.1.*
+postcss-css-variables = 0.12.*
+postcss-normalize-whitespace = 4.0.*
+postcss-minify-params = 4.0.*
+postcss-normalize-string = 4.0.*
+postcss-normalize-display-values = 4.0.*
+postcss-normalize-positions = 4.0.*
+postcss-normalize-repeat-style = 4.0.*
+postcss-minify-font-values = 4.0.*
+postcss-minify-gradients = 4.0.*
+postcss-color-hex-alpha = 5.0.*
+postcss-merge-longhand = 4.0.*
+postcss-discard-empty = 4.0.*
 
 [devDependencies] // 开发依赖库
 ava = *
