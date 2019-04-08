@@ -22,6 +22,7 @@ module.exports = (function(oLibs={}) {
         // -------------------------------------------------------------
         let get = bus.on('get-relative-css')[0];         // 从样式库按需引用
 
+        pkg = pkg.replace(/@/ig, '').replace(/[^a-zA-Z0-9\-_/]/g, '-');       // @scope/name => scope-name
         let csslib = { name, pkg, imp, get, nodes: [] };
         name && (oLibs[name] = csslib);
         return csslib;
