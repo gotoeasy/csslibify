@@ -38,7 +38,8 @@ module.exports = (function(oLibs={}) {
         // -------------------------------------------------------------
         let get = bus.on('get-relative-css')[0];                                    // 从样式库按需引用
 
-        let csslib = { name, pkg, imp, get, _imported: [] };                        // _imported为空数组时表示没有导入过
+        let basePath = bus.at('cache').path + '/resources';                         // 资源目录
+        let csslib = { name, pkg, imp, get, basePath, nodes: [], _imported: [] };   // _imported为空数组时表示没有导入过
         id && (oLibs[id] = csslib);
         return csslib;
     };
