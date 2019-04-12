@@ -62,7 +62,12 @@ css = csslib.get( 'div', '.foo', '.bar');
 //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}
 ```
 
-## 测试结果示例
+## 测试结果示例（0.3.x）
+样式库中规则的选择器，任意一个标签或类名属于被查询范围，就按查询结果之一处理<br>
+也就是以效果为主，忽略可能会多抽取样式的影响，有区别于`0.2.x`版本的严格查询<br>
+具体例子参考测试用例
+
+## 测试结果示例（0.2.x）
 <details>
 <summary><strong>01 新建样式库并指定库名，可有效避免类名冲突，也便于复用</strong></summary>
 

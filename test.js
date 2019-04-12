@@ -85,9 +85,9 @@ test('30 标签名条件按需引用@media-例子2', t => {
     rs = csslib.get( 'a' );
     isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}}');
     rs = csslib.get( 'div' );
-    isSameCss(t, rs, '');
+    isSameCss(t, rs, '@media (min-width: 768px) {.pkg---foo div{size:2}}');
     rs = csslib.get( 'a', 'div' );
-    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}}');
+    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}} @media (min-width: 768px) {.pkg---foo div{size:2}}');
 });
 
 
@@ -140,9 +140,9 @@ test('27 标签名条件按需引用-例子2', t => {
     rs = csslib.get( 'a' );
     isSameCss(t, rs, 'a{size:1}');
     rs = csslib.get( 'div' );
-    isSameCss(t, rs, '');
+    isSameCss(t, rs, '.pkg---foo div{size:2}');
     rs = csslib.get( 'a', 'div' );
-    isSameCss(t, rs, 'a{size:1}');
+    isSameCss(t, rs, 'a{size:1} .pkg---foo div{size:2}');
 });
 
 
@@ -477,7 +477,7 @@ test('09 样式类按需引用，含not条件-例子2', t => {
 
     csslib.imp('.foo{size:1} .bar{size:2} .foo:not(.bar){size:3}');
     rs = csslib.get( '.bar' );
-    isSameCss(t, rs, '.pkg---bar{size:2}');
+    isSameCss(t, rs, '.pkg---bar{size:2} .pkg---foo:not(.pkg---bar){size:3}');
 });
 
 
@@ -519,7 +519,7 @@ test('06 样式类按需引用-例子2', t => {
     csslib.imp('.baz{size:3}');
 
     rs = csslib.get( '.baz' );
-    isSameCss(t, rs, '.baz{size:3}');
+    isSameCss(t, rs, '.bar .baz{size:2} .baz{size:3}');
 });
 
 test('05 样式类按需引用-例子1', t => {
@@ -549,7 +549,7 @@ test('04 readme中的简易例子', t => {
     csslib.imp(css);
 
     rs = csslib.get( '.bar', '.baz' );
-    isSameCss(t, rs, '.thepkg---bar{size:12} .thepkg---baz{size:13}');
+    isSameCss(t, rs, '.thepkg---bar{size:12}  .thepkg---foo > .thepkg---bar{color:red} .thepkg---baz{size:13}');
 
     rs = csslib.get( '.foo', '.bar' );
     isSameCss(t, rs, '.thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}');
