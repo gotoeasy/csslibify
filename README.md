@@ -52,8 +52,8 @@ let csslib = csslibify('thepkg');
 csslib.imp('.foo{size:11} .bar{size:12} .foo > .bar{color:red}');
 csslib.imp('.baz{size:13}');
 csslib.imp('div{color:red}');
-let css = csslib.get('.bar', '.baz');
-//=>  .thepkg---bar{size:12} .thepkg---baz{size:13}
+let css = csslib.get('.baz');
+//=>  .thepkg---baz{size:13}
 
 css = csslib.get('.foo', '.bar');
 //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}
