@@ -37,7 +37,7 @@ npm i csslibify
 - [x] csslib.imp(cssOrFile, opts) - 把CSS或CSS文件导入到样式库<br>
       cssOrFile - 样式文件或内容 （必须输入）<br>
       opts.basePath - 样式所在目录 （文件时默认为文件所在目录，内容时默认当前目录）<br>
-      opts.assetsPath - 修改后的url资源目录 （默认复制资源后使用绝对路径）<br>
+      opts.assetsPath - 修改后的url资源目录 （默认复制资源后使用相同路径即url中无目录）<br>
 - [x] csslib.get(...args) - 按需取样式<br>
       args - 字符串或选项对象，参数顺序无关<br>
       字符串时，以`.`开头的视为类名条件，否则视为标签名条件<br>
