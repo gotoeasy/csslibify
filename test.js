@@ -2,6 +2,25 @@ const test = require('ava');
 const csslibify = require('.');
 
 
+test('36 指定严格匹配的引用模式，有所差别', t => {
+	let css, pkg, csslib, rs;
+
+    pkg = 'pkg';
+	csslib = csslibify(pkg);
+
+	css = '.foo {color:red;} div .bar{size:12} .foo .bar{display: block;}';
+    csslib.imp(css);
+
+    rs = csslib.get( 'div' );
+    isSameCss(t, rs, 'div .pkg---bar{size:12}');
+    rs = csslib.get( 'div' , {strict: true});
+    isSameCss(t, rs, '');
+    rs = csslib.get( '.foo', '.bar', {strict: true});
+    isSameCss(t, rs, '.pkg---foo {color:red} .pkg---foo .pkg---bar{display: block}');
+    rs = csslib.get( '.foo', '.bar');
+    isSameCss(t, rs, '.pkg---foo {color:red}  div .pkg---bar{size:12} .pkg---foo .pkg---bar{display: block}');
+});
+
 test('35 有标签名条件时，自动取出通配符等不含标签及类名选择器的样式', t => {
 	let css, pkg, csslib, rs;
 

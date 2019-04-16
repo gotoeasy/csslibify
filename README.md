@@ -63,9 +63,31 @@ css = csslib.get( 'div', '.foo', '.bar');
 ```
 
 ## 测试结果示例（0.3.x）
+默认为宽松匹配引用<br>
 样式库中规则的选择器，任意一个标签或类名属于被查询范围，就按查询结果之一处理<br>
 也就是以效果为主，忽略可能会多抽取样式的影响，有区别于`0.2.x`版本的严格查询<br>
 具体例子参考测试用例
+可以通过查询选项(strict=true)修改为严格匹配引用<br>
+```js
+test('36 指定严格匹配的引用模式，有所差别', t => {
+    let css, pkg, csslib, rs;
+
+    pkg = 'pkg';
+    csslib = csslibify(pkg);
+
+    css = '.foo {color:red;} div .bar{size:12} .foo .bar{display: block;}';
+    csslib.imp(css);
+
+    rs = csslib.get( 'div' );
+    isSameCss(t, rs, 'div .pkg---bar{size:12}');
+    rs = csslib.get( 'div' , {strict: true});
+    isSameCss(t, rs, '');
+    rs = csslib.get( '.foo', '.bar', {strict: true});
+    isSameCss(t, rs, '.pkg---foo {color:red} .pkg---foo .pkg---bar{display: block}');
+    rs = csslib.get( '.foo', '.bar');
+    isSameCss(t, rs, '.pkg---foo {color:red}  div .pkg---bar{size:12} .pkg---foo .pkg---bar{display: block}');
+});
+```
 
 ## 测试结果示例（0.2.x）
 <details>
