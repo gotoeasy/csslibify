@@ -2,6 +2,21 @@ const test = require('ava');
 const csslibify = require('.');
 
 
+test('37 含viewport时的抽取', t => {
+	let css, pkg, csslib, rs;
+
+    pkg = 'pkg';
+	csslib = csslibify(pkg);
+
+	css = '.bar{size:12} @viewport{width:device-width}';
+    csslib.imp(css);
+
+    rs = csslib.get( '.bar' );
+    isSameCss(t, rs, '.pkg---bar{size:12}');
+    rs = csslib.get( '.bar', {atviewport: true});
+    isSameCss(t, rs, '.pkg---bar{size:12}  @viewport{width:device-width}');
+});
+
 test('36 指定严格匹配的引用模式，有所差别', t => {
 	let css, pkg, csslib, rs;
 
@@ -12,12 +27,12 @@ test('36 指定严格匹配的引用模式，有所差别', t => {
     csslib.imp(css);
 
     rs = csslib.get( 'div' );
-    isSameCss(t, rs, 'div .pkg---bar{size:12}');
-    rs = csslib.get( 'div' , {strict: true});
     isSameCss(t, rs, '');
-    rs = csslib.get( '.foo', '.bar', {strict: true});
-    isSameCss(t, rs, '.pkg---foo {color:red} .pkg---foo .pkg---bar{display: block}');
+    rs = csslib.get( 'div', {strict: false});
+    isSameCss(t, rs, 'div .pkg---bar{size:12}');
     rs = csslib.get( '.foo', '.bar');
+    isSameCss(t, rs, '.pkg---foo {color:red} .pkg---foo .pkg---bar{display: block}');
+    rs = csslib.get( '.foo', '.bar', {strict: false});
     isSameCss(t, rs, '.pkg---foo {color:red}  div .pkg---bar{size:12} .pkg---foo .pkg---bar{display: block}');
 });
 
@@ -83,11 +98,11 @@ test('31 类名标签名条件按需引用@media', t => {
     csslib.imp(css);
 
     rs = csslib.get( '.foo' );
-    isSameCss(t, rs, '@media (min-width: 768px) {div .pkg---foo{size:2}}');
+    isSameCss(t, rs, '');
     rs = csslib.get( 'a' );
     isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}}');
     rs = csslib.get( 'a', '.foo' );
-    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1} } @media (min-width: 768px) {div .pkg---foo{size:2}}');
+    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1} }');
     rs = csslib.get( 'a', '.foo', 'div' );
     isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}} @media (min-width: 768px) { div .pkg---foo{size:2} }'); 
 });
@@ -104,9 +119,9 @@ test('30 标签名条件按需引用@media-例子2', t => {
     rs = csslib.get( 'a' );
     isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}}');
     rs = csslib.get( 'div' );
-    isSameCss(t, rs, '@media (min-width: 768px) {.pkg---foo div{size:2}}');
+    isSameCss(t, rs, '');
     rs = csslib.get( 'a', 'div' );
-    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}} @media (min-width: 768px) {.pkg---foo div{size:2}}');
+    isSameCss(t, rs, '@media (min-width: 768px) {a{size:1}}');
 });
 
 
@@ -138,11 +153,11 @@ test('28 类名标签名条件按需引用', t => {
     csslib.imp(css);
 
     rs = csslib.get( '.foo' );
-    isSameCss(t, rs, 'div .pkg---foo{size:2}');
+    isSameCss(t, rs, '');
     rs = csslib.get( 'a' );
     isSameCss(t, rs, 'a{size:1}');
     rs = csslib.get( 'a', '.foo' );
-    isSameCss(t, rs, 'a{size:1} div .pkg---foo{size:2}');
+    isSameCss(t, rs, 'a{size:1}');
     rs = csslib.get( 'a', '.foo', 'div' );
     isSameCss(t, rs, 'a{size:1} div .pkg---foo{size:2}');
 });
@@ -159,9 +174,9 @@ test('27 标签名条件按需引用-例子2', t => {
     rs = csslib.get( 'a' );
     isSameCss(t, rs, 'a{size:1}');
     rs = csslib.get( 'div' );
-    isSameCss(t, rs, '.pkg---foo div{size:2}');
+    isSameCss(t, rs, '');
     rs = csslib.get( 'a', 'div' );
-    isSameCss(t, rs, 'a{size:1} .pkg---foo div{size:2}');
+    isSameCss(t, rs, 'a{size:1}');
 });
 
 
@@ -496,7 +511,7 @@ test('09 样式类按需引用，含not条件-例子2', t => {
 
     csslib.imp('.foo{size:1} .bar{size:2} .foo:not(.bar){size:3}');
     rs = csslib.get( '.bar' );
-    isSameCss(t, rs, '.pkg---bar{size:2} .pkg---foo:not(.pkg---bar){size:3}');
+    isSameCss(t, rs, '.pkg---bar{size:2}');
 });
 
 
@@ -538,7 +553,7 @@ test('06 样式类按需引用-例子2', t => {
     csslib.imp('.baz{size:3}');
 
     rs = csslib.get( '.baz' );
-    isSameCss(t, rs, '.bar .baz{size:2} .baz{size:3}');
+    isSameCss(t, rs, '.baz{size:3}');
 });
 
 test('05 样式类按需引用-例子1', t => {
@@ -568,7 +583,7 @@ test('04 readme中的简易例子', t => {
     csslib.imp(css);
 
     rs = csslib.get( '.bar', '.baz' );
-    isSameCss(t, rs, '.thepkg---bar{size:12}  .thepkg---foo > .thepkg---bar{color:red} .thepkg---baz{size:13}');
+    isSameCss(t, rs, '.thepkg---bar{size:12}  .thepkg---baz{size:13}');
 
     rs = csslib.get( '.foo', '.bar' );
     isSameCss(t, rs, '.thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}');
