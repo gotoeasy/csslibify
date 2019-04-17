@@ -43,7 +43,9 @@ npm i csslibify
       字符串时，以`.`开头的视为类名条件，否则视为标签名条件<br>
       选项对象时，opts.rename - 类名修改函数（第一参数为包名，第二参数为不含`.`的类名，返回新类名），默认为${pkg}---{classname}<br>
       选项对象时，opts.atpage - 是否包含@page样式，默认false<br>
+      选项对象时，opts.atviewport - 是否包含@viewport样式，默认false<br>
       选项对象时，opts.strict - 是否严格匹配，默认true。（非严格匹配时任意一个标签或类名属于被查询范围，就按匹配成功处理）<br>
+      选项对象时，opts.universal - 是否包含通用样式（不含类名和标签名的通用样式，如通配符选择器属性选择器等），默认false<br>
 - [x] csslib.has(classname) - 判断样式库中是否有指定样式类名<br>
 
 
@@ -54,6 +56,7 @@ let csslib = csslibify('thepkg');
 csslib.imp('.foo{size:11} .bar{size:12} .foo > .bar{color:red}');
 csslib.imp('.baz{size:13}');
 csslib.imp('div{color:red}');
+csslib.imp('*{size:16}');
 let css = csslib.get('.baz');
 //=>  .thepkg---baz{size:13}
 
@@ -62,9 +65,12 @@ css = csslib.get('.foo', '.bar');
 
 css = csslib.get( 'div', '.foo', '.bar');
 //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}
+
+css = csslib.get( 'div', '.foo', '.bar', {universal: true});
+//=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red} *{size:16}
 ```
 
-## 测试结果示例
+## 结果示例（详细参考测试例子）
 <details>
 <summary><strong>01 新建样式库并指定库名，可有效避免类名冲突，也便于复用</strong></summary>
 

@@ -2,6 +2,36 @@ const test = require('ava');
 const csslibify = require('.');
 
 
+test('38 README.md Sample', t => {
+	let pkg, csslib, rs;
+
+    pkg = 'thepkg';
+	csslib = csslibify(pkg);
+    csslib.imp('.foo{size:11} .bar{size:12} .foo > .bar{color:red}');
+    csslib.imp('.baz{size:13}');
+    csslib.imp('div{color:red}');
+    csslib.imp('*{size:16}');
+
+    rs = csslib.get('.baz');
+    //=>  .thepkg---baz{size:13}
+    isSameCss(t, rs, '.thepkg---baz{size:13}');
+
+    rs = csslib.get('.foo', '.bar');
+    //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}
+    isSameCss(t, rs, '.thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red}');
+
+    rs = csslib.get( 'div', '.foo', '.bar');
+    //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}
+    isSameCss(t, rs, '.thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red}');
+
+    rs = csslib.get( 'div', '.foo', '.bar', {universal: true});
+    //=>  .thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red} *{size:16}
+    isSameCss(t, rs, '.thepkg---foo{size:11} .thepkg---bar{size:12} .thepkg---foo > .thepkg---bar{color:red} div{color:red} *{size:16}');
+
+    rs = csslib.get( {universal: true});
+    isSameCss(t, rs, '*{size:16}');
+});
+
 test('37 含viewport时的抽取', t => {
 	let css, pkg, csslib, rs;
 
@@ -36,7 +66,7 @@ test('36 指定严格匹配的引用模式，有所差别', t => {
     isSameCss(t, rs, '.pkg---foo {color:red}  div .pkg---bar{size:12} .pkg---foo .pkg---bar{display: block}');
 });
 
-test('35 有标签名条件时，自动取出通配符等不含标签及类名选择器的样式', t => {
+test('35 选项指定，取出不含标签及类名选择器的通用样式样式', t => {
 	let css, pkg, csslib, rs;
 
     pkg = 'pkg';
@@ -45,7 +75,7 @@ test('35 有标签名条件时，自动取出通配符等不含标签及类名�
 	css = '* {box-sizing: border-box;} [title]{color:red} article,aside { display: block; }';
     csslib.imp(css);
 
-    rs = csslib.get( 'article' );
+    rs = csslib.get( 'article', {universal: true} );
     isSameCss(t, rs, '* {box-sizing: border-box;} [title]{color:red} article { display: block; }');
 });
 
