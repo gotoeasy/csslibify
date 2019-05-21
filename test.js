@@ -1,6 +1,23 @@
 const test = require('ava');
 const csslibify = require('.');
 
+test('39 has', t => {
+	let pkg, csslib, rs;
+
+    pkg = 'thepkg';
+	csslib = csslibify(pkg);
+    csslib.imp('.foo{size:11} .bar{size:12} .foo > .bar{color:red} .baz div{color:red}');
+
+    rs = csslib.has('.foo');
+    t.is(rs, true);
+
+    rs = csslib.has('.bar');
+    t.is(rs, true);
+
+    rs = csslib.has('.baz');
+    t.is(rs, true);
+});
+
 
 test('38 README.md Sample', t => {
 	let pkg, csslib, rs;
