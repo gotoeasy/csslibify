@@ -1,6 +1,6 @@
 {
   "name": "csslibify",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "main": "index.js",
   "dependencies": {
     "@gotoeasy/os": "0.0.*",

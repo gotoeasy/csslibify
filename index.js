@@ -16,11 +16,9 @@ module.exports = (function(oLibs={}) {
         pkg = pkg.replace(/[@\*]/ig, '').replace(/[^a-zA-Z0-9\-_/]/g, '-');             // @scope/name => scope-name
 
         if ( id && oLibs[id] ){
-            let rs = oLibs[id];
-            if ( rs.name !== name ){
-                rs = Object.assign({}, rs);                                             // 库名不一样时，浅复制实例修改库名(包名已被作为哈希条件哈希到id中，应该一样，可以忽略)
-                rs.name = name;
-            }
+            let rs = Object.assign({}, oLibs[id]);                                      // 浅复制实例返回
+            rs.name = name;
+            rs.pkg = pkg;
             return rs;
         } 
 
